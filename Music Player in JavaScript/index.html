@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dammnigga</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.ogleapis./icon?family=Material+Icons">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="top-bar">
+      
+      <span>Now Playing</span>
+      
+    </div>
+    <div class="img-area">
+      <img src="" alt="">
+    </div>
+    <div class="song-details">
+      <p class="name"></p>
+      <p class="artist"></p>
+    </div>
+    <div class="progress-area">
+      <div class="progress-bar">
+        <audio id="main-audio" src=""></audio>
+      </div>
+      <div class="song-timer">
+        <span class="current-time">0:00</span>
+        <span class="max-duration">0:00</span>
+      </div>
+    </div>
+    <div class="controls">
+     
+      <i id="prev" class="material-icons"><img src="images/previous.png" alt="" srcset=""></i>
+      <div class="play-pause">
+        <i><img src="images/pause.png" alt="" srcset=""></i>
+      </div>
+      <i id="next" class="material-icons"><img src="images/right-arrow (1).png" alt="" srcset=""></i>
+      
+    </div>
+    <div class="music-list">
+      <div class="header">
+        <div class="row">
+          <i class= "list material-icons"></i>
+          <span></span>
+        </div>
+        <i id="close" class="material-icons"></i>
+      </div>
+      
+    </div>
+    <div class="lyrics">
+      <p id="lowkey"></p>
+    </div>
+  </div>
+<script>
+  let allMusic = [
+  {
+    name: "NEELE NEELE AMBAR PR",
+    artist: "KISHORE KUMAR",
+    img: "music-1",
+    src: "music-1",
+    lyrics: "Neele neele ambar par chaand jab aaye Pyaar barsaaye humko tarsaaye Aisa koi saathi ho aisa koi premi ho Pyaas dil ki bujha jaaye Neele neele ambar par chaand jab aaye Pyaar barsaaye humko tarsaaye Aisa koi saathi ho aisa koi premi ho Pyaas dil ki bujha jaaye Oh oonche oonche parvat jab choomte hain ambar ko Pyaasa pyaasa ambar jab choomta hai saagar ko Oonche oonche parvat jab choomte hain ambar ko Pyaasa pyaasa ambar jab choomta hai saagar ko Pyaar se kasne ko baahon mein basne ko Dil mera lalchaaye koi to aa jaaye Aisa koi saathi ho aisa koi premi ho Pyaas dil ki bujha jaaye Neele neele ambar par chaand jab aaye Pyaar barsaaye humko tarsaaye Oh thande thande jhonke jab baalon ko sehlayein Tapti tapti kirnen jab gaalon ko chhoo jayein Thande thande jhonke jab baalon ko sehlayein Tapti tapti kirnen jab gaalon ko chhoo jayein Saanson ki garmi ko haathon ki narmi ko Mera mann tarsaaye koi to chhoo jhaaye Aisa koi saathi ho aisa koi premi ho Pyaas dil ki bujha jaaye Neele neele ambar par chaand jab aaye Pyaar barsaaye humko tarsaaye Hey chham chham karta saawan boondon ke baan chalaaye Satrangi barsaaton mein jab tan man bhiga jaaye Chham chham karta saawan boondon ke baan chalaaye Satrangi barsaaton mein jab tan man bhiga jaaye Pyaar mein nahaane ko doob hi jaane ko Dil mera tadpaaye khwaab jaga jaaye Aisa koi saathi ho aisa koi premi ho Pyaas dil ki bujha jaaye Neele neele ambar par chaand jab aaye Pyaar barsaaye humko tarsaaye La la la"
+                          
+  },
+
+
+
+  {
+    name: "PAL PAL DIL KE PASS ",
+    artist: "KISHORE KUMAR",
+    img: "music-2",
+    src: "music-2",
+    lyrics: "Pal-pal dil ke paas tum rehti ho Pal-pal dil ke paas tum rehti ho Jeevan meethi pyaas yeh kehti ho Pal-pal dil ke paas tum rehti ho Har shyam aankhon par tera aanchal lehraye Har raat yaadon ki baarat le aaye Main saans leta hoon, teri khushboo aati hai Ek mehka-mehka sa paigaam laati hai Meri dil ki dhadkan bhi tere geet gaati hai Pal-pal dil ke paas tum rehti ho Kal tujhko dekhaa tha maine apne aangan mein Jaise keh rahee thi tum mujhe baandh lo bandhan mein Ye kaisaa rishtaa hai? ye kaise sapne hain? Begaane ho kar bhi kyun lagte apne hain? Main soch mein rehta hoon, dar-dar ke kehtaa hoon Pal-pal dil ke paas tum rehti ho"
+  },
+  {
+    name: "DIL KO MERE CHAIN AYE",
+    artist: "KISHORE KUMAR",
+    img: "music-3",
+    src: "music-3",
+    lyrics: "O mere, dil ke chain O mere, dil ke chain Chain aae mere dil ko duaa kijiye O mere, dil ke chain Chain aae mere dil ko duaa kijiye Apanaa hi saayaa dekh ke tum jaane jahaa sharamaa gae Abhi to ye pehali manzil hai, tum to abhi se ghabaraa gae Meraa kyaa hogaa, socho to jaraa Haay aise naa aanhe bharaa kijiye O mere, dil ke chain Chain aae mere dil ko duaa kijiye Aapakaa aramaan aapakaa naam, meraa taraanaa aur nahi In jhukati palako ke sivaa, dil kaa thikaanaa aur nahi Jachataa hi nahi aankho me koi Dil tumako hi chaahe to kyaa kijiye O mere, dil ke chain Chain aae mere dil ko duaa kijiye Yun to akelaa bhi aqasar, gir ke sambhal sakataa hun mai Tum jo pakad lo haath meraa, duniyaa badal sakataa hun mai Maagaa hai tumhe duniyaa ke liye Ab kud hi sanam faisalaa kijiye O mere, dil ke chain Chain aae mere dil ko duaa kijiye O mere, dil ke chain O mere"
+  },
+ 
+ 
+];
+const wrapper = document.querySelector(".wrapper"),
+musicImg = wrapper.querySelector(".img-area img"),
+musicName = wrapper.querySelector(".song-details .name"),
+musicArtist = wrapper.querySelector(".song-details .artist"),
+playPauseBtn = wrapper.querySelector(".play-pause"),
+prevBtn = wrapper.querySelector("#prev"),
+nextBtn = wrapper.querySelector("#next"),
+mainAudio = wrapper.querySelector("#main-audio"),
+progressArea = wrapper.querySelector(".progress-area"),
+progressBar = progressArea.querySelector(".progress-bar"),
+musicList = wrapper.querySelector(".music-list"),
+moreMusicBtn = wrapper.querySelector("#more-music"),
+closemoreMusic = musicList.querySelector("#close");
+
+let musicIndex = Math.floor((Math.random() * allMusic.length) + 1);
+isMusicPaused = true;
+
+window.addEventListener("load", ()=>{
+  loadMusic(musicIndex);
+  playingSong(); 
+});
+
+function loadMusic(indexNumb){
+  musicName.innerText = allMusic[indexNumb - 1].name;
+  musicArtist.innerText = allMusic[indexNumb - 1].artist;
+  musicImg.src = `images/${allMusic[indexNumb - 1].src}.jpg`;
+  mainAudio.src = `songs/${allMusic[indexNumb - 1].src}.mp3`;
+  document.getElementById('lowkey').innerText = allMusic[indexNumb - 1].lyrics;
+}
+
+
+function playMusic(){
+  wrapper.classList.add("paused");
+  playPauseBtn.src ='images/play-button-arrowhead.png';
+  playPauseBtn.querySelector("img").src = "images/pause.png";
+  mainAudio.play();
+}
+
+
+function pauseMusic(){
+  wrapper.classList.remove("paused");
+  playPauseBtn.querySelector("img").src = "images/play.png";
+  mainAudio.pause();
+}
+
+
+function prevMusic(){
+  musicIndex--; 
+  musicIndex < 1 ? musicIndex = allMusic.length : musicIndex = musicIndex;
+  loadMusic(musicIndex);
+  playMusic();
+  playingSong(); 
+}
+
+
+function nextMusic(){
+  musicIndex++; 
+  musicIndex > allMusic.length ? musicIndex = 1 : musicIndex = musicIndex;
+  loadMusic(musicIndex);
+  playMusic();
+  playingSong(); 
+}
+
+
+playPauseBtn.addEventListener("click", ()=>{
+  const isMusicPlay = wrapper.classList.contains("paused");
+  
+  isMusicPlay ? pauseMusic() : playMusic();
+  playingSong();
+});
+
+
+prevBtn.addEventListener("click", ()=>{
+  prevMusic();
+});
+
+
+nextBtn.addEventListener("click", ()=>{
+  nextMusic();
+});
+
+
+mainAudio.addEventListener("timeupdate", (e)=>{
+  const currentTime = e.target.currentTime;
+  const duration = e.target.duration; 
+  let progressWidth = (currentTime / duration) * 100;
+  progressBar.style.width = `${progressWidth}%`;
+
+  let musicCurrentTime = wrapper.querySelector(".current-time"),
+  musicDuartion = wrapper.querySelector(".max-duration");
+  mainAudio.addEventListener("loadeddata", ()=>{
+    
+    let mainAdDuration = mainAudio.duration;
+    let totalMin = Math.floor(mainAdDuration / 60);
+    let totalSec = Math.floor(mainAdDuration % 60);
+    if(totalSec < 10){ 
+      totalSec = `0${totalSec}`;
+    }
+    musicDuartion.innerText = `${totalMin}:${totalSec}`;
+  });
+ 
+  let currentMin = Math.floor(currentTime / 60);
+  let currentSec = Math.floor(currentTime % 60);
+  if(currentSec < 10){ 
+    currentSec = `0${currentSec}`;
+  }
+  musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+});
+
+
+progressArea.addEventListener("click", (e)=>{
+  let progressWidth = progressArea.clientWidth; 
+  let clickedOffsetX = e.offsetX; 
+  let songDuration = mainAudio.duration; 
+  
+  mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
+  playMusic(); 
+  playingSong();
+});
+
+
+
+
+</script>
+  
+
+</body>
+</html>
